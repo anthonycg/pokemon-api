@@ -8,15 +8,17 @@ const PokemonCall = (props) => {
 
     useEffect( () => {
         axios.get('https://pokeapi.co/api/v2/pokemon/')
-        .then(response => {setPokeList(response.data.results)})
-        .then(pokeList.map( (index, pokemon) => {
-            return ({pokeList})
-            
-        }))
+        .then(response => {
+            setPokeList(response.data.results)
+        })
+        .catch(err => {console.log(err.response)})
     }, [])
+
     return (
         <div>
-            <p></p>
+            {pokeList.map( (pokemon, index) => {
+                return <p key={index}>{pokemon.name}</p>
+            } )}
         </div>
     )
 }
