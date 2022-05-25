@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
+
 
 const PokemonCall = (props) => {
-    const [pokeList, setPokeList]= useState([])
+    const [pokeList, setPokeList] = useState([]);
 
     useEffect( () => {
-        console.log("hello")
-        fetch('https://pokeapi.co/api/v2/pokemon/')
-        .then(response => response.json())
-        .then(response => setPokeList(response.results))
-        .catch(err => console.log(err))
+        axios.get('https://pokeapi.co/api/v2/pokemon/')
+        .then(response => {setPokeList(response.data.results)})
+        .then(pokeList.map( (index, pokemon) => {
+            return ({pokeList})
+            
+        }))
     }, [])
-
     return (
         <div>
-            <form onSubmit={PokemonCall}>
-                <button>Get Pokemon</button>
-            {pokeList.map( (pokemon, index) => {
-                return (<p key={index}>{pokemon.name}</p>)
-            })}
-            </form>
+            <p></p>
         </div>
     )
 }
+
+
 
 export default PokemonCall;
